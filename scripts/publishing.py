@@ -93,7 +93,7 @@ def faq_html(items=FAQ):
 
 def invitation():
     return ('<section class="submission-callout" id="submissions" aria-labelledby="welcome-title">'
-            '<div><p class="welcome-label">New submissions welcome</p><h2 id="welcome-title">Your tool could be next.</h2>'
+            '<div><p class="welcome-label"><span>02</span>New submissions welcome</p><h2 id="welcome-title">Your tool could be next.</h2>'
             '<p>Built a useful skill, MCP server, CLI, API or agent tool? We’d love to list it. Share your repository and setup instructions from your account or through your agent.</p>'
             '<p class="submission-note">Free to submit. No fork or pull request needed.</p></div>'
             '<div class="submission-action">' + a('Submit your tool →',local('submit/'),'button')
@@ -103,9 +103,9 @@ def home(catalog):
     buttons = ''.join(f'<button type="button" aria-pressed="{str(value=="All").lower()}" disabled>{h(value)}</button>'
                       for value in ['All',*dict.fromkeys(e['category'] for e in catalog['listings'])])
     return ('<section id="browse"><div class="hero"><div class="hero-copy">'
-            '<h1>Find the tools<br>your agent needs.</h1>'
-            '<p>Skills, MCP servers, CLIs, APIs and more. Find useful tools, check their setup and go straight to the source.</p></div>'
-            f'<div class="hero-sketch" aria-hidden="true"><img src="{local("assets/harness-sketch.svg")}" alt="" width="340" height="270"><span class="sketch-note">find your<br>starting point</span></div></div>'
+            '<p class="kicker"><span>01</span>Directory of useful tools</p><h1>Find the right tool<br><span class="hl">for the job.</span></h1>'
+            '<p>Apps, skills, MCP servers, CLIs, APIs and more. Find useful tools, check their setup and go straight to the source.</p></div>'
+            f'<div class="hero-sketch" aria-hidden="true"><img src="{local("assets/harness-sketch.svg")}" alt="" width="340" height="270"><span class="sketch-note">Fig. 01 / Find your starting point</span></div></div>'
             f'<div class="controls"><label class="search">{icon("MagnifyingGlass")}'
             '<span class="sr-only">Search tools</span><input id="search" type="search" placeholder="Search tools…" autocomplete="off" disabled></label>'
             '<label class="type-filter"><span class="sr-only">Tool type</span><select id="tool-type" disabled><option value="All">All tool types</option>'
@@ -133,7 +133,7 @@ def detail(e):
     counts = ''.join(f'<div><strong>{value}</strong><span>{h(names[key].removesuffix("s") if value==1 else names[key])}</span></div>'
                      for key,value in e.get('contents',{}).items() if key!='tools')
     r=e['review']; review_name='Artifacts checked' if r['status']=='artifact-checked' else 'Setup reviewed'
-    aside = '<aside class="detail-aside"><h2>About this tool</h2>'+tool_image(e)+'<div class="inside">'+counts+'</div>'
+    aside = '<aside class="detail-aside"><div class="aside-head">'+tool_image(e)+'<h2>About this tool</h2></div><div class="inside">'+counts+'</div>'
     if e.get('contents',{}).get('tools'): aside += list_section('Execution tools',e['contents']['tools'])
     aside += (f'<section class="aside-section"><h3>{review_name}</h3><p>{h(r["evidence"])}</p>'
               + a('Review source ↗',r['url'],'review-link')
