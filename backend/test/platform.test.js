@@ -151,3 +151,38 @@ test('HTTP: only configured social providers are public and private auth returns
   assert.ok((await page.text()).includes('id="social-sign-in"'));
   assert.ok(page.headers.get('content-security-policy').includes('https://www.gstatic.com/firebasejs/13.1.0/'));
 });
+
+test('visit counts accept only public tools, increment atomically and contain no visitor identities',async()=>{
+  const {api,store}=await fixture();const d=await api.saveTool(alice,tool);
+  await assert.rejects(api.recordVisit(d.id),{status:404});
+  await api.submit(alice,d.id,d.revision);await api.review(admin,d.id,d.revision,'publish','Reviewed install scope');
+  const first=(await api.catalog()).listings[0].publishedAt;
+  await Promise.all(Array.from({length:5},()=>api.recordVisit(d.id)));
+  assert.equal((await api.visitCounts())[d.id],5);
+  assert.deepEqual(await store.get('toolVisits',d.id),{count:5});
+  const edit=await api.saveTool(alice,{...tool,summary:'Updated focused tool description.'},d.id,d.revision);
+  await api.submit(alice,d.id,edit.revision);await api.review(admin,d.id,edit.revision,'publish','Reviewed updated scope');
+  assert.equal((await api.catalog()).listings[0].publishedAt,first);
+  await api.withdraw(alice,d.id);await assert.rejects(api.recordVisit(d.id),{status:404});
+});
+
+test('home includes visit and recency metadata; visit endpoint rejects cross-origin and private IDs',async()=>{
+  const store=new MemoryStore(),catalog={listings:[{id:'paper-unfold-mesh',name:'Tool',review:{reviewed_at:'2026-10-01'}}]};
+  const {app,api}=await createApp({store,catalog,auth:{},origin});
+  const server=app.listen(0);await once(server,'listening');
+  const base='http://127.0.0.1:'+server.address().port;
+  try {
+    const url=base+'/api/public/tools/paper-unfold-mesh/visit';
+    assert.equal((await fetch(url,{method:'POST',headers:{Origin:'https://other.test'}})).status,403);
+    assert.equal((await fetch(base+'/api/public/tools/private-tool/visit',{method:'POST',headers:{Origin:origin}})).status,404);
+    assert.equal((await fetch(url,{method:'POST',headers:{Origin:origin,'User-Agent':'ExampleBot'}})).status,204);
+    assert.equal((await api.visitCounts())['paper-unfold-mesh'],undefined);
+    assert.equal((await fetch(url,{method:'POST',headers:{Origin:origin,'User-Agent':'Mozilla/5.0'}})).status,204);
+    assert.equal((await api.visitCounts())['paper-unfold-mesh'],1);
+    const html=await (await fetch(base+'/')).text();
+    assert.match(html, /data-tool-id="paper-unfold-mesh"[^>]*data-visits="1" data-published="2026-10-01"/);
+    assert.ok(html.includes('id="sort-order"'));
+    assert.ok(html.includes('value="random">Random'));
+    assert.ok(!html.includes('ownerUid'));
+  } finally {server.closeAllConnections();server.close();}
+});

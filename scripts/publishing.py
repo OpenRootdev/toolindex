@@ -82,7 +82,7 @@ def tool_image(e):
 
 def listing(e):
     search = ' '.join([e['name'], e['summary'], e['category'], e.get('type','Harness'), *e['notes'], *e.get('contents',{}).get('tools',[])])
-    return (f'<article id="{h(e["id"])}" class="listing" data-tool-id="{h(e["id"])}" data-category="{h(e["category"])}" data-type="{h(e.get("type","Harness"))}" data-search="{h(search)}" {boost_attributes(e)}>'
+    return (f'<article id="{h(e["id"])}" class="listing" data-tool-id="{h(e["id"])}" data-category="{h(e["category"])}" data-type="{h(e.get("type","Harness"))}" data-search="{h(search)}" data-published="{h(e.get("publishedAt", e["review"].get("reviewed_at", "")))}" {boost_attributes(e)}>'
             + tool_image(e) + '<div class="listing-body"><h2>' + a(e['name'],local(tool_path(e))) + '</h2>'
             + f'<p>{h(e["summary"])}</p>{labels(e)}</div><div class="listing-action">'
             + f'<a href="{local(tool_path(e))}">View tool {icon("ArrowRight")}</a>'
@@ -111,7 +111,10 @@ def home(catalog):
             '<label class="type-filter"><span class="sr-only">Tool type</span><select id="tool-type" disabled><option value="All">All tool types</option>'
             + ''.join(f'<option>{h(kind)}</option>' for kind in TOOL_TYPES) + '</select></label>'
             +
-            f'<div id="categories" class="categories" role="group" aria-label="Filter by category">{buttons}</div></div>'
+            '</div><div class="browse-toolbar">'
+            f'<div id="categories" class="categories" role="group" aria-label="Filter by category">{buttons}</div>'
+            '<label class="sort-filter">Sort by <select id="sort-order" disabled aria-describedby="sort-help"><option value="random">Random</option><option value="popular">Popular</option><option value="recent">Recent</option></select></label></div>'
+            '<p id="sort-help" class="sort-help">A fresh mix of tools on each visit.</p>'
             '<noscript><p class="no-js-note">Search needs JavaScript. You can still browse every tool and its installation page below.</p></noscript>'
             f'<p id="count" class="sr-only" role="status" aria-live="polite">{len(catalog["listings"])} tools shown</p>'
             '<div id="listings" aria-label="Tool listings">' + ''.join(listing(e) for e in catalog['listings']) + '</div>'

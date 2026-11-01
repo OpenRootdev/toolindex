@@ -2,6 +2,7 @@ import express from 'express';
 import { rateLimit } from 'express-rate-limit';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { randomInt } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { initializeApp, getApps } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
@@ -149,10 +150,33 @@ export async function createApp(options = {}) {
     html(res,'/tools/'+e.id+'/',e.name,e.summary,detail(e,origin),{structured:{'@context':'https://schema.org','@type':'CreativeWork',name:e.name,description:e.summary,url:e.url,sameAs:e.repository,author:{'@type':'Person',url:origin+'/people/'+e.author+'/'}}});
   });
   app.get('/api/public/tools/:id',async(req,res)=>{const e=(await api.catalog()).listings.find(e=>e.id===req.params.id);if(!e)throw new Problem(404,'Tool not found');res.json(e);});
+  const visitLimit=rateLimit({windowMs:3600000,limit:60,standardHeaders:'draft-8',legacyHeaders:false});
+  app.post('/api/public/tools/:id/visit',sameOrigin,visitLimit,async(req,res)=>{
+    // Ignore common crawlers and speculative loads. Totals are a discovery
+    // signal, not audited unique users. Never persist IPs or account identities.
+    if (!/bot|crawler|spider|preview|headless/i.test(req.get('user-agent') || '') && !req.get('purpose')?.includes('prefetch') && !req.get('sec-purpose')?.includes('prefetch')) await api.recordVisit(checkedId(req.params.id));
+    res.set('Cache-Control','no-store').status(204).end();
+  });
   app.get('/',async(req,res)=>{
-    const additions=(await api.catalog()).listings.filter(e=>!baseCatalog.listings.some(b=>b.id===e.id));
+    const [catalog,counts]=await Promise.all([api.catalog(),api.visitCounts()]);
+    const additions=catalog.listings.filter(e=>!baseCatalog.listings.some(b=>b.id===e.id));
     let source=await readFile(path.join(publicDir,'index.html'),'utf8');
     source=source.replace(/(<\/div>\s*<p id="empty")/,match=>additions.map(card).join('')+match);
+    // Shuffle the server HTML too, giving no-JavaScript readers a fresh mix.
+    source=source.replace(/(<div id="listings"[^>]*>)([\s\S]*?)(<\/div>\s*<p id="empty")/,(_,open,body,close)=>{
+      const cards=body.match(/<article\b[\s\S]*?<\/article>/g) || [];
+      for(let i=cards.length-1;i>0;i--){const j=randomInt(i+1);[cards[i],cards[j]]=[cards[j],cards[i]];}
+      return open+cards.join('')+close;
+    });
+    source=source.replace(/(<div id="categories"[^>]*>)[\s\S]*?<\/div>/,(_,open)=>open+['All',...new Set(catalog.listings.map(e=>e.category))].map(c=>`<button type="button" aria-pressed="${c==='All'}" disabled>${esc(c)}</button>`).join('')+'</div>');
+    source=source.replace(/(<p id="count"[^>]*>)[\s\S]*?<\/p>/,(_,open)=>open+catalog.listings.length+' tools shown</p>');
+    const byId=new Map(catalog.listings.map(e=>[e.id,e]));
+    source=source.replace(/<article\b[^>]*class="listing"[^>]*>/g,tag=>{
+      const id=tag.match(/data-tool-id="([^"]+)"/)?.[1],e=byId.get(id);
+      if (!e) return tag;
+      return tag.replace(/ data-(?:visits|published)="[^"]*"/g,'').slice(0,-1)+` data-visits="${Number(counts[id]) || 0}" data-published="${esc(e.publishedAt || e.review?.reviewed_at || '')}">`;
+    });
+    res.set('Cache-Control','no-store');
     res.type('html').send(source);
   });
   app.get('/sitemap.xml',async(req,res)=>{

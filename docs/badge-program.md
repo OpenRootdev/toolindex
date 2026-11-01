@@ -16,7 +16,7 @@ Exact Markdown or an equivalent linked HTML image is supported. The image alt te
 
 Previously issued `https://toolindex.org/#your-slug` backlinks still qualify and navigate to the corresponding page. Use the real page URL for new badges.
 
-Active listings appear before regular listings, then alphabetically within each group. Search and category filters still apply. The directory shows a **Community boost** label and its expiry on the detail page. This is promotional placement; review status and quality claims remain independent.
+Browsing defaults to a fresh random order. Visitors can also choose Popular (counted tool-page visits) or Recent (first publication date). Active grants retain the **Community boost** label and expiry on the detail page, but do not override the selected sort order. Search and category filters still apply. Review status and quality claims remain independent.
 
 The daily trusted-main workflow reads only public GitHub README metadata. It records the initial grant, expiry, latest badge presence and check time in `data/boosts.json`. It does not run code from a harness repo. Removing the badge stops the boost after the next check. Putting it back can restore only the remaining original period. Expired grants never renew automatically. Duplicate submissions, slug changes or repository transfers do not entitle the same harness to a second initial reward; maintainers review identity.
 

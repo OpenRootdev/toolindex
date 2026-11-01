@@ -156,37 +156,37 @@
     },
     {
       "path": "docs/badge-program.md",
-      "sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18",
+      "sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e",
       "mirrors": {
         "es": {
           "path": "docs/i18n/es/docs/badge-program.md",
           "status": "complete",
-          "source_sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18"
+          "source_sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e"
         },
         "zh-CN": {
           "path": "docs/i18n/zh-CN/docs/badge-program.md",
           "status": "complete",
-          "source_sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18"
+          "source_sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e"
         },
         "fr": {
           "path": "docs/i18n/fr/docs/badge-program.md",
           "status": "complete",
-          "source_sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18"
+          "source_sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e"
         },
         "ja": {
           "path": "docs/i18n/ja/docs/badge-program.md",
           "status": "complete",
-          "source_sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18"
+          "source_sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e"
         },
         "de": {
           "path": "docs/i18n/de/docs/badge-program.md",
           "status": "complete",
-          "source_sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18"
+          "source_sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e"
         },
         "pt-BR": {
           "path": "docs/i18n/pt-BR/docs/badge-program.md",
           "status": "complete",
-          "source_sha256": "15fdcc0898f18d5174f18f8c13351b8a7048a826287fa599707fe0f623bf5d18"
+          "source_sha256": "f067fde9fd1f11baa996f961ee9c896a9037afacabcdf67ca2abc8ac4ebc487e"
         }
       }
     },

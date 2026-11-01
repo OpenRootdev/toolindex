@@ -56,6 +56,17 @@ export function domain(store, baseCatalog, origin) {
       const rows = await store.list('publicTools');
       return {...baseCatalog, generated_at: nowISO(), listings: [...baseCatalog.listings, ...rows.map(({_key, ...e}) => e)], page_limit: 1000};
     },
+    async visitCounts() {
+      return Object.fromEntries((await store.list('toolVisits')).map(v => [v._key, v.count || 0]));
+    },
+    async recordVisit(id) {
+      return store.atomic(async tx => {
+        const published = baseCatalog.listings.some(e => e.id === id) || await tx.get('publicTools', id);
+        if (!published) throw new Problem(404, 'Tool not found');
+        const previous = await tx.get('toolVisits', id);
+        tx.set('toolVisits', id, {count:(previous?.count || 0) + 1});
+      });
+    },
     async publicPage({after, limit = 50, query = ''} = {}) {
       // Advance across the underlying stream, even when a search page has no matches.
       const block = await store.list('publicTools', {after, limit: 100});
@@ -107,6 +118,7 @@ export function domain(store, baseCatalog, origin) {
       return store.atomic(async tx => {
         const row = await tx.get('submissions', id);
         if (!row || row.status !== 'submitted' || row.revision !== revision) throw new Problem(409, 'This review is out of date. Reload the queue.');
+        const published = decision === 'publish' ? await tx.get('publicTools', id) : null;
         row.status = decision === 'publish' ? 'published' : 'rejected'; row.reviewNote = message; row.reviewedAt = nowISO();
         tx.set('submissions', id, row);
         tx.set('reviewEvents', id + '-r' + revision + '-' + randomUUID().slice(0,8), {id, revision, reviewerUid: reviewer.uid, decision, evidence: message, reviewedAt: row.reviewedAt});
@@ -119,7 +131,7 @@ export function domain(store, baseCatalog, origin) {
           author: row.author, url: origin + '/tools/' + id + '/',
           ...(row.data.imageUrl ? {image: {url: row.data.imageUrl, alt: row.data.imageAlt, source: row.data.imageSource}} : {}),
           review: {status: 'setup-reviewed', reviewed_at: nowISO().slice(0,10), evidence: message, built_with_harneloop: false},
-          publishedAt: nowISO(), revision
+          publishedAt: published?.publishedAt || nowISO(), revision
         });
         return row;
       });

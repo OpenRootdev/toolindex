@@ -16,7 +16,7 @@ São aceitos o Markdown exato ou uma imagem HTML vinculada equivalente. O texto 
 
 Links de retorno emitidos anteriormente, `https://toolindex.org/#your-slug`, continuam válidos e levam à página correspondente. Use a URL real da página para novos badges.
 
-Entradas ativas aparecem antes das entradas comuns e, dentro de cada grupo, em ordem alfabética. Os filtros de busca e categoria continuam aplicáveis. O diretório exibe o rótulo **Community boost** e sua expiração na página de detalhes. Isso é posicionamento promocional; o status de revisão e as afirmações de qualidade permanecem independentes.
+A navegação usa por padrão uma nova ordem aleatória. Os visitantes também podem escolher Popular (visitas contadas à página da ferramenta) ou Recent (data da primeira publicação). As promoções ativas mantêm o rótulo **Community boost** e a expiração na página de detalhes, mas não alteram a ordenação escolhida. Os filtros de busca e categoria continuam aplicáveis. O status de revisão e as afirmações de qualidade permanecem independentes.
 
 O fluxo de trabalho diário da branch main confiável lê apenas metadados públicos dos READMEs no GitHub. Ele registra a concessão inicial, a expiração, a presença mais recente do badge e o horário da verificação em `data/boosts.json`. Não executa código de repositórios de harnesses. Remover o badge interrompe o destaque após a próxima verificação. Colocá-lo de volta pode restaurar apenas o restante do período original. Concessões expiradas nunca são renovadas automaticamente. Envios duplicados, mudanças de slug ou transferências de repositório não dão ao mesmo harness o direito a uma segunda recompensa inicial; os mantenedores verificam a identidade.
 

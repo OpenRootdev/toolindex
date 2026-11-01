@@ -16,7 +16,7 @@ Exaktes Markdown oder ein gleichwertiges verlinktes HTML-Bild wird unterstützt.
 
 Früher ausgegebene Rücklinks `https://toolindex.org/#your-slug` bleiben berechtigt und führen zur entsprechenden Seite. Nutzen Sie für neue Badges die echte Seiten-URL.
 
-Aktive Einträge erscheinen vor regulären Einträgen; innerhalb beider Gruppen wird alphabetisch sortiert. Suche und Kategoriefilter gelten weiterhin. Das Verzeichnis zeigt auf der Detailseite ein **Community boost**-Label und dessen Ablaufdatum. Dies ist eine Werbeplatzierung; Prüfstatus und Qualitätsaussagen bleiben unabhängig.
+Die Übersicht verwendet standardmäßig eine neue zufällige Reihenfolge. Besucher können auch Popular (gezählte Aufrufe der Tool-Seite) oder Recent (Datum der ersten Veröffentlichung) wählen. Aktive Förderungen behalten das Label **Community boost** und das Ablaufdatum auf der Detailseite, überschreiben aber nicht die gewählte Sortierung. Suche und Kategoriefilter gelten weiterhin. Prüfstatus und Qualitätsaussagen bleiben unabhängig.
 
 Der tägliche Workflow auf dem vertrauenswürdigen main-Branch liest nur öffentliche GitHub-README-Metadaten. Er speichert die erste Gewährung, den Ablauf, die zuletzt festgestellte Badge-Präsenz und den Prüfzeitpunkt in `data/boosts.json`. Er führt keinen Code aus einem Harness-Repository aus. Wird das Badge entfernt, endet der Boost nach der nächsten Prüfung. Erneutes Einfügen kann nur die verbleibende ursprüngliche Laufzeit wiederherstellen. Abgelaufene Gewährungen verlängern sich niemals automatisch. Doppelte Einreichungen, Slug-Änderungen oder Repository-Transfers berechtigen denselben Harness nicht zu einer zweiten Erstbelohnung; Maintainer prüfen die Identität.
 
