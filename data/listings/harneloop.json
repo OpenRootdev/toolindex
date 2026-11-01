@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "harneloop",
+  "name": "Harneloop",
+  "summary": "Helps an AI agent learn from what went wrong: inspect real results, trace the mistake and keep only harness changes a test supports.",
+  "category": "Coding",
+  "repository": "https://github.com/OpenRootdev/Harneloop",
+  "license": "Apache-2.0",
+  "version": "0.0.2",
+  "distribution": {
+    "kind": "package",
+    "url": "https://pypi.org/project/harneloop/0.0.2/",
+    "label": "Install from PyPI",
+    "scope": "The harneloop command-line tool as a Python package. The repository also holds docs, examples, tests and translations that are not needed to use it.",
+    "repository_has_extra_material": true
+  },
+  "installation": [
+    {
+      "title": "Install the command",
+      "body": "Install it as an isolated tool with uv, then run the doctor check. You can also use python -m pip install harneloop in your own Python 3.11+ environment.",
+      "url": "https://pypi.org/project/harneloop/",
+      "label": "Harneloop on PyPI",
+      "command": "uv tool install harneloop\nharneloop doctor"
+    },
+    {
+      "title": "Give your agent the repository",
+      "body": "Harneloop is meant to be driven by an agent with file and terminal access. Ask it to read the README and docs/agent-onboarding.md, then use Harneloop to create a harness unit for the task you want it to get better at.",
+      "url": "https://github.com/OpenRootdev/Harneloop#agent-quick-start",
+      "label": "Agent quick start prompt",
+      "command": "harneloop onboard --format json"
+    },
+    {
+      "title": "Or start it yourself",
+      "body": "harneloop setup opens a guided menu that creates and registers a harness unit. After that you can check any unit by name from any folder.",
+      "command": "harneloop setup\nharneloop units list"
+    }
+  ],
+  "manual_setup": [
+    "Python 3.11 or newer and git. uv is recommended for an isolated install; if uv says its tool folder is not on PATH, run uv tool update-shell and open a new terminal.",
+    "You bring the task and the environment it runs in. Harneloop does not discover endpoints, tools, screenshots or output paths for you; the agent maps them into the harness unit."
+  ],
+  "notes": [
+    "Public alpha. The core loop works; the first published case study is Blender scene construction with ViperMesh.",
+    "It changes the harness around the model (instructions, tools, context and checks), not the model itself. A proposed change becomes the working version only after a test supports it."
+  ],
+  "contents": {
+    "skills": 1,
+    "tools": [
+      "harneloop CLI",
+      "Python 3.11+",
+      "git"
+    ]
+  },
+  "documentation": "https://harneloop.kaelux.dev/",
+  "type": "CLI",
+  "image": {
+    "url": "assets/logos/harneloop.svg",
+    "alt": "Harneloop logo: two overlapping rings",
+    "source": "https://github.com/OpenRootdev/Harneloop/blob/main/docs/assets/harneloop-mark.svg"
+  }
+}

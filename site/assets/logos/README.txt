@@ -3,3 +3,7 @@ Source: https://github.com/OpenRootdev/vipermesh-blender/blob/main/site/assets/b
 SHA: 6ee7a138e986d6bca473db1074fac21482d621b4
 Used to identify the listed project, not to imply endorsement.
 Smooth Motion Graphics has no published project logo in its current README or complete file tree. It uses the neutral initials fallback, not an invented logo.
+
+Harneloop logo: upstream docs/assets/harneloop-mark.svg, copied 2026-11-01.
+Source: https://github.com/OpenRootdev/Harneloop/blob/main/docs/assets/harneloop-mark.svg
+SHA: 85aa53c231d0807bdea5252667dbf1132d453079
