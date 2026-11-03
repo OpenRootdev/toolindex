@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "acswi",
+  "name": "Account Switcher (acswi)",
+  "summary": "Sign in to each account once, then switch a Windows app or CLI between them in one click or one command, from a window, the tray or the terminal.",
+  "category": "Operations",
+  "repository": "https://github.com/OpenRootdev/acswi",
+  "license": "MIT",
+  "version": "0.2.0",
+  "distribution": {
+    "kind": "package",
+    "url": "https://github.com/OpenRootdev/acswi/releases/download/v0.2.0/acswi-windows-x64.zip",
+    "label": "Download for Windows",
+    "scope": "acswi.exe (the command) and acswi-desktop.exe (the window and tray menu) plus the licence. No source, docs or preview media.",
+    "repository_has_extra_material": true
+  },
+  "installation": [
+    {
+      "title": "Download and unzip",
+      "body": "Unzip both programs into a folder on your PATH. Windows SmartScreen may warn the first time, because the programs are not code-signed yet.",
+      "url": "https://github.com/OpenRootdev/acswi/releases/tag/v0.2.0",
+      "label": "Release v0.2.0"
+    },
+    {
+      "title": "Add a second account",
+      "body": "acswi saves the account you are signed in to now, signs the app out and lets you sign in the other one. After that, acswi on its own lists every app with numbered accounts; type a number to switch.",
+      "command": "acswi add codex\nacswi"
+    },
+    {
+      "title": "Switch by name, or from scripts and agents",
+      "body": "acswi <app> <account> switches directly. Add --json for machine-readable output with stable exit codes; acswi never prints a token or password.",
+      "url": "https://github.com/OpenRootdev/acswi/blob/main/docs/usage.md",
+      "label": "Usage guide",
+      "command": "acswi claude work\nacswi gh sam-dev --json"
+    }
+  ],
+  "manual_setup": [
+    "Windows 11 (Windows 10 with the WebView2 runtime should work but is not tested).",
+    "Each app you want to switch, signed in once per account through acswi.",
+    "Apps not built in need a short TOML definition; acswi learn <app> watches the app while you sign in and drafts one."
+  ],
+  "notes": [
+    "Built in: GitHub CLI, Azure CLI, Claude Code, Codex CLI, Cursor, GitHub Desktop and Discord.",
+    "Saved sign-ins stay on the PC, encrypted with Windows DPAPI for the current user. Anything running as that user can still decrypt them, the same protection the apps give their own tokens.",
+    "Apps that keep several accounts themselves (GitHub CLI, Azure CLI) are switched with their own commands; nothing is copied for them."
+  ],
+  "contents": {
+    "tools": [
+      "acswi CLI",
+      "acswi-desktop window and tray",
+      "Windows 11"
+    ]
+  },
+  "documentation": "https://github.com/OpenRootdev/acswi/tree/main/docs",
+  "type": "CLI",
+  "image": {
+    "url": "assets/logos/acswi.svg",
+    "alt": "Account Switcher logo: two account silhouettes, one in front in blue",
+    "source": "https://github.com/OpenRootdev/acswi/blob/assets/logo.svg"
+  }
+}

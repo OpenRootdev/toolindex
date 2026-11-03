@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect x="1" y="1" width="118" height="118" rx="28" fill="#FBF6EE" stroke="#2F2D2A" stroke-opacity="0.12" stroke-width="2"/>
+  <!-- back account: ink outline -->
+  <circle cx="47" cy="41" r="12" fill="none" stroke="#2F2D2A" stroke-width="6"/>
+  <path d="M24 84a23 19 0 0 1 46 0" fill="none" stroke="#2F2D2A" stroke-width="6" stroke-linecap="round"/>
+  <!-- front account: accent, with a tile-coloured edge that cuts the lines behind it -->
+  <g fill="#0B6BCB" stroke="#FBF6EE" stroke-width="5" paint-order="stroke">
+    <circle cx="74" cy="56" r="13.5"/>
+    <path d="M48 98a26 22 0 0 1 52 0z"/>
+  </g>
+</svg>
