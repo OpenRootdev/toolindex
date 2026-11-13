@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "sfx-tool",
+  "name": "sfx-tool",
+  "summary": "A sound effects workspace for AI agents: your agent makes the sounds from plain-language requests, you hear and shape them in a local Studio, then export WAVs or typing tracks.",
+  "category": "Creative",
+  "repository": "https://github.com/OpenRootdev/sfx-tool",
+  "license": "MIT",
+  "version": "0.1.0",
+  "distribution": {
+    "kind": "package",
+    "url": "https://github.com/OpenRootdev/sfx-tool/releases/download/v0.1.0/sfx-tool.zip",
+    "label": "Download tool ZIP",
+    "scope": "The Studio, the command and the agent skill (bin, src, studio, skill, package.json, licence). No preview media or translations.",
+    "repository_has_extra_material": true
+  },
+  "installation": [
+    {
+      "title": "Install Node.js",
+      "body": "Node.js 18 or newer. sfx-tool has no other dependencies.",
+      "url": "https://nodejs.org",
+      "label": "Get Node.js"
+    },
+    {
+      "title": "Give it to your agent",
+      "body": "Copy the skill/ folder into your agent's skills folder (for Claude Code: ~/.claude/skills/sfx-tool). Then ask for sounds in plain words; the agent writes them as recipe files in sfx/ and the open Studio plays each change live.",
+      "url": "https://github.com/OpenRootdev/sfx-tool/blob/main/skill/SKILL.md",
+      "label": "Read the skill"
+    },
+    {
+      "title": "Open the Studio",
+      "body": "In your project's folder, run the command. It creates an sfx/ folder with 34 example sounds and opens the Studio, where you hear each sound, move sliders to reshape it and try variations. Your edits and the agent's land in the same files.",
+      "command": "npx github:OpenRootdev/sfx-tool studio --open"
+    },
+    {
+      "title": "Make a typing track",
+      "body": "Turn text into a quiet WAV you can place under a video in HyperFrames, Remotion, FFmpeg or any editor. The Studio's Track tab does the same.",
+      "command": "npx github:OpenRootdev/sfx-tool track --text \"npm i sfx-tool\" --sound knock --end-chime -o typing.wav"
+    }
+  ],
+  "manual_setup": [
+    "Node.js 18 or newer and a browser for the Studio. The Studio loads Google Fonts when online."
+  ],
+  "notes": [
+    "Every sound is synthesized locally: no account, no API key and nothing to credit.",
+    "The agent and the Studio work on the same sfx/ folder, so changes from either side show up in the other within a second.",
+    "Tracks are quiet on purpose (-30 LUFS) and every keystroke is a slightly different take, so it never sounds like a loop."
+  ],
+  "contents": {
+    "skills": 1,
+    "references": 0,
+    "renderers": 0,
+    "files": 17,
+    "mcp_tools": 0,
+    "tools": [
+      "Node.js",
+      "Web Audio"
+    ]
+  },
+  "documentation": "https://github.com/OpenRootdev/sfx-tool#readme",
+  "type": "CLI",
+  "image": {
+    "url": "assets/logos/sfx-tool.svg",
+    "alt": "A keycap giving off two soft sound waves",
+    "source": "https://github.com/OpenRootdev/sfx-tool/blob/assets/logo.svg"
+  }
+}
