@@ -61,7 +61,7 @@
   "type": "CLI",
   "image": {
     "url": "assets/logos/sfx-tool.svg",
-    "alt": "A keycap giving off two soft sound waves",
+    "alt": "A white keycap with a sound waveform on a blue tile",
     "source": "https://github.com/OpenRootdev/sfx-tool/blob/assets/logo.svg"
   }
 }
