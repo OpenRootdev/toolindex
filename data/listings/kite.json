@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "kite",
+  "name": "Kite",
+  "summary": "Lets an AI agent design in a shared file: it draws real, editable layers (frames, text, components, auto layout) your team edits and comments on live, and can copy any frame as HTML, React or Tailwind.",
+  "category": "Creative",
+  "repository": "https://github.com/kitedotnew/kite-agent-plugins",
+  "license": "Plugin repository MIT; the hosted Kite service is under the Kite terms (https://kite.new/terms)",
+  "version": "hosted",
+  "distribution": {
+    "kind": "service",
+    "url": "https://kite.new/api/mcp",
+    "label": "Hosted MCP server",
+    "scope": "Remote Streamable HTTP MCP server with OAuth sign-in. The repository holds the Claude Code, Codex and Cursor plugin packaging (server entry plus the Kite skill), which is optional.",
+    "repository_has_extra_material": true
+  },
+  "installation": [
+    {
+      "title": "Add the server to any MCP client",
+      "body": "Add Kite as a remote MCP server (custom connector in Claude, ChatGPT or Grok). The first call opens Kite in the browser to sign in or create a free account and allow access. Headless clients can send a Bearer API key created in Kite Settings instead.",
+      "url": "https://kite.new/docs/mcp",
+      "label": "Kite MCP docs",
+      "command": "https://kite.new/api/mcp"
+    },
+    {
+      "title": "Or install the Claude Code plugin",
+      "body": "The plugin adds the same hosted server and the Kite design skill. Then run /mcp, choose kite and sign in.",
+      "command": "/plugin marketplace add kitedotnew/kite-agent-plugins\n/plugin install kite@kite"
+    },
+    {
+      "title": "Or install the Codex plugin",
+      "body": "Add the marketplace, then install Kite from /plugins and sign in when asked.",
+      "command": "codex plugin marketplace add kitedotnew/kite-agent-plugins"
+    }
+  ],
+  "manual_setup": [
+    "A Kite account (free plan: unlimited editors, 3 files and a daily cap on agent actions; Pro removes the caps). Sign-in happens once in the browser; no key to paste for OAuth clients."
+  ],
+  "notes": [
+    "Kite sells no AI credits: the agent runs on the plan you already use. Design files are stored in your Kite workspace; you can disconnect an agent any time in Kite settings (https://kite.new/privacy)."
+  ],
+  "documentation": "https://kite.new/docs",
+  "type": "MCP server"
+}
