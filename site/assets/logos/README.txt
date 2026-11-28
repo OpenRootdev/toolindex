@@ -11,3 +11,7 @@ SHA: 85aa53c231d0807bdea5252667dbf1132d453079
 Account Switcher (acswi) logo: upstream logo.svg on the assets branch, copied 2026-11-03.
 Source: https://github.com/OpenRootdev/acswi/blob/assets/logo.svg
 SHA: 0b7daacaf1d2dd7d68038165600dff82a107fd1f
+
+sfx-tool logo: upstream logo.svg on the assets branch, copied 2026-11-14.
+Source: https://github.com/OpenRootdev/sfx-tool/blob/assets/logo.svg
+SHA: c952b3fc7b51e0c3c041e7a57b0b8f0a580dca32
